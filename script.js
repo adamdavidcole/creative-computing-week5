@@ -70,6 +70,8 @@ function getMouse(mousePosition) {
 // create shapes
 const sphere = new Sphere({ size: 200 });
 const spherePulse = new SpherePulse({ size: 200 });
+const organicSpherePulse = new OrganicSpherePulse({ size: 300 });
+
 const cube = new Rectangle({ size: 200 });
 const cylinder = new Cylinder({ size: 200 });
 const cone = new Cone({ size: 200 });
@@ -120,12 +122,15 @@ function draw() {
   //   y: 2 * map(mouseY, 0, height, -500, 500),
   // });
 
-  spherePulse.update();
-  spherePulse.draw();
+  // spherePulse.update();
+  // spherePulse.draw();
   // spherePulse.setRotation({
   //   x: map(mouseX, 0, width, -TWO_PI, TWO_PI),
   //   y: map(mouseY, 0, height, -TWO_PI, TWO_PI),
   // });
+
+  organicSpherePulse.update();
+  organicSpherePulse.draw();
 
   frameCount++;
 

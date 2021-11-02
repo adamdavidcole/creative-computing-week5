@@ -46,9 +46,9 @@ class Shape {
 
   setScale({ x, y, z }) {
     const [currX, currY, currZ] = this.scaleFactor;
-    this.scaleFactor[0] = x || currX; // x scale
-    this.scaleFactor[1] = y || currY; // y scale
-    this.scaleFactor[2] = z || currZ; // z scale
+    this.scaleFactor[0] = x ?? currX; // x scale
+    this.scaleFactor[1] = y ?? currY; // y scale
+    this.scaleFactor[2] = z ?? currZ; // z scale
   }
 
   /**

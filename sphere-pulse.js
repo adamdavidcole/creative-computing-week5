@@ -20,6 +20,8 @@ class SpherePulse extends Shape {
     this.numCircles = 100;
     this.numVerticesPerCircle = 100;
 
+    this.pulsePeriod = TWO_PI;
+
     // pulse factor as a fraction of the radius
     this.pulseFactor = 1 / 10;
 
@@ -36,8 +38,9 @@ class SpherePulse extends Shape {
       const z = Math.cos(depthSpacing * i) * this.size;
       const radius = Math.sin(depthSpacing * i) * this.size;
 
-      const phaseRange = map(mouseX, 0, width, 0, 100);
-      const zPhase = map(z, -this.size, this.size, 0, phaseRange * TWO_PI);
+      // const phaseRange = map(mouseX, 0, width, 0, 100);
+      // const zPhase = map(z, -this.size, this.size, 0, phaseRange * TWO_PI);
+      const zPhase = map(z, -this.size, this.size, 0, this.pulsePeriod);
 
       for (let angle = 0; angle < TWO_PI - angleIncr; angle += angleIncr) {
         // const x = Math.cos(angle) * (Math.sin(frameCount / 100) + 1.25) * 0.25;
