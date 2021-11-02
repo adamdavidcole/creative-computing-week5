@@ -1,7 +1,9 @@
 /**
  * CONSTANTS
  */
-var fov = 500;
+const fov = 500;
+const PI = Math.PI;
+const TWO_PI = 2 * PI;
 
 /**
  * SCENE SETUP AND EVENT HANDLERS
@@ -65,18 +67,9 @@ function getMouse(mousePosition) {
  */
 
 // create shapes
-const cubeVertices = [
-  [0, 0, 0],
-  [1, 0, 0],
-  [1, 1, 0],
-  [0, 1, 0],
-  [0, 0, 1],
-  [1, 0, 1],
-  [1, 1, 1],
-  [0, 1, 1],
-];
-const cubeShape = new Shape({ verticies: cubeVertices });
 const sphere = new Sphere({ size: 200 });
+const cube = new Rectangle({ size: 200 });
+const cylinder = new Cylinder({ size: 200 });
 
 function draw() {
   // clear rect
@@ -85,12 +78,24 @@ function draw() {
 
   // draw sphere
   sphere.draw();
-
-  // update position
   sphere.rotate({ z: 0.01, x: 0.01, y: 0.01 });
   sphere.setScale({
     x: map(mouseX, 0, width, -5, 5),
     y: map(mouseY, 0, height, -5, 5),
+  });
+
+  cube.draw();
+  cube.rotate({ z: 0.01, x: 0.01, y: 0.01 });
+  cube.setScale({
+    x: map(mouseX, 0, width, -500, 500),
+    y: map(mouseY, 0, height, -500, 500),
+  });
+
+  cylinder.draw();
+  cylinder.rotate({ z: 0.01, x: 0.01, y: 0.01 });
+  cylinder.setScale({
+    x: map(mouseX, 0, width, -500, 500),
+    y: 2 * map(mouseY, 0, height, -500, 500),
   });
 
   requestAnimationFrame(draw);

@@ -18,7 +18,6 @@ class Sphere extends Shape {
     this.size = size || 1;
 
     this.initSphereVertices();
-    console.log("this.vertices", this.verticies);
   }
 
   initSphereVertices() {
