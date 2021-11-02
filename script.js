@@ -4,6 +4,7 @@
 const fov = 500;
 const PI = Math.PI;
 const TWO_PI = 2 * PI;
+let frameCount = 0;
 
 /**
  * SCENE SETUP AND EVENT HANDLERS
@@ -68,8 +69,11 @@ function getMouse(mousePosition) {
 
 // create shapes
 const sphere = new Sphere({ size: 200 });
+const spherePulse = new SpherePulse({ size: 200 });
 const cube = new Rectangle({ size: 200 });
 const cylinder = new Cylinder({ size: 200 });
+const cone = new Cone({ size: 200 });
+const taurus = new Taurus({ size: 200 });
 
 function draw() {
   // clear rect
@@ -77,26 +81,53 @@ function draw() {
   context.fillRect(0, 0, width, height);
 
   // draw sphere
-  sphere.draw();
-  sphere.rotate({ z: 0.01, x: 0.01, y: 0.01 });
-  sphere.setScale({
-    x: map(mouseX, 0, width, -5, 5),
-    y: map(mouseY, 0, height, -5, 5),
-  });
+  // sphere.draw();
+  // sphere.rotate({ z: 0.01, x: 0.01, y: 0.01 });
+  // sphere.setScale({
+  //   x: map(mouseX, 0, width, -5, 5),
+  //   y: map(mouseY, 0, height, -5, 5),
+  // });
 
-  cube.draw();
-  cube.rotate({ z: 0.01, x: 0.01, y: 0.01 });
-  cube.setScale({
-    x: map(mouseX, 0, width, -500, 500),
-    y: map(mouseY, 0, height, -500, 500),
-  });
+  // draw cube
+  // cube.draw();
+  // cube.rotate({ z: 0.01, x: 0.01, y: 0.01 });
+  // cube.setScale({
+  //   x: map(mouseX, 0, width, -500, 500),
+  //   y: map(mouseY, 0, height, -500, 500),
+  // });
 
-  cylinder.draw();
-  cylinder.rotate({ z: 0.01, x: 0.01, y: 0.01 });
-  cylinder.setScale({
-    x: map(mouseX, 0, width, -500, 500),
-    y: 2 * map(mouseY, 0, height, -500, 500),
-  });
+  // draw cylinder
+  // cylinder.draw();
+  // cylinder.rotate({ z: 0.01, x: 0.01, y: 0.01 });
+  // cylinder.setScale({
+  //   x: map(mouseX, 0, width, -500, 500),
+  //   y: 2 * map(mouseY, 0, height, -500, 500),
+  // });
+
+  // draw cone
+  // cone.draw();
+  // cone.rotate({ z: 0.01, x: 0.01, y: 0.01 });
+  // cone.setScale({
+  //   x: map(mouseX, 0, width, -500, 500),
+  //   y: 2 * map(mouseY, 0, height, -500, 500),
+  // });
+
+  // draw taurus
+  // taurus.draw();
+  // taurus.rotate({ z: 0.01, x: 0.01, y: 0.01 });
+  // taurus.setScale({
+  //   x: map(mouseX, 0, width, -500, 500),
+  //   y: 2 * map(mouseY, 0, height, -500, 500),
+  // });
+
+  spherePulse.update();
+  spherePulse.draw();
+  // spherePulse.setRotation({
+  //   x: map(mouseX, 0, width, -TWO_PI, TWO_PI),
+  //   y: map(mouseY, 0, height, -TWO_PI, TWO_PI),
+  // });
+
+  frameCount++;
 
   requestAnimationFrame(draw);
 }
