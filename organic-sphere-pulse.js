@@ -1,6 +1,6 @@
 class OrganicSpherePulse {
-  constructor({ size }) {
-    this.spherePulse = new SpherePulse({ size });
+  constructor({ ...args }) {
+    this.spherePulse = new SpherePulse({ ...args });
   }
 
   update() {

@@ -72,12 +72,15 @@ function getMouse(mousePosition) {
 const sphere = new Sphere({ size: 200 });
 const spherePulse = new SpherePulse({ size: 200 });
 const organicSpherePulse = new OrganicSpherePulse({ size: 300 });
+const mirroredOrganicSpheres = new MirroredOrganicSpheres({});
 
 const cube = new Rectangle({ width: 200, height: 200, depth: 200 });
 const cylinder = new Cylinder({ size: 200 });
 const cone = new Cone({ size: 200 });
 const taurus = new Taurus({ size: 200 });
 const roses = new Roses({});
+const violinShape = new ViolinShape({});
+const organicSphereRing = new OrganicSphereRing({});
 
 const coneOfCubes = new ConeOfCubes();
 
@@ -140,8 +143,17 @@ function draw() {
   // coneOfCubes.update();
   // coneOfCubes.draw();
 
-  roses.update();
-  roses.draw();
+  // roses.update();
+  // roses.draw();
+
+  // violinShape.update();
+  // violinShape.draw();
+
+  // mirroredOrganicSpheres.update();
+  // mirroredOrganicSpheres.draw();
+
+  organicSphereRing.update();
+  organicSphereRing.draw();
 
   frameCount++;
 

@@ -11,14 +11,21 @@
 // let numRenderedRings = dim;
 
 class SpherePulse extends Shape {
-  constructor({ size, scale, translation, rotation }) {
+  constructor({
+    size = 100,
+    scale,
+    translation,
+    rotation,
+    numVerticesPerCircle = 100,
+    numCircles = 100,
+  }) {
     super();
 
     this.verticies = [];
-    this.size = size || 100;
+    this.size = size;
 
-    this.numCircles = 100;
-    this.numVerticesPerCircle = 100;
+    this.numCircles = numCircles;
+    this.numVerticesPerCircle = numVerticesPerCircle;
 
     this.pulsePeriod = TWO_PI;
 
