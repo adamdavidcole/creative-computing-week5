@@ -16,16 +16,26 @@ const rightFace = [1, 2, 6, 5];
 const bottomFace = [3, 7, 6, 2];
 const leftFace = [0, 4, 7, 3];
 
+const faces = [frontFace, backFace, topFace, rightFace, bottomFace, leftFace];
+
 class Rectangle extends Shape {
-  constructor({ width, height, depth }) {
+  constructor({
+    width,
+    height,
+    depth,
+    numPointsPerLine,
+    shouldDrawAsFaces,
+  } = {}) {
     super();
 
-    this.verticies = [];
-    this.width = 200;
-    this.height = 200;
-    this.depth = 200;
+    this.shouldDrawAsFaces = shouldDrawAsFaces ?? false;
 
-    this.numPointsPerLine = 20;
+    this.verticies = [];
+    this.width = width || 200;
+    this.height = height || 200;
+    this.depth = depth || 200;
+
+    this.numPointsPerLine = numPointsPerLine || 20;
 
     this.initRectangleVertices();
 
@@ -41,10 +51,11 @@ class Rectangle extends Shape {
     const distanceWidth = vecDistance(v1, v0);
     const distanceHeight = vecDistance(v1, v2);
 
-    const spacing = distanceWidth / this.numPointsPerLine;
+    const spacingHeight = distanceHeight / this.numPointsPerLine;
+    const spacingWidth = distanceWidth / this.numPointsPerLine;
 
-    for (let i = 0; i <= distanceHeight + spacing; i += spacing) {
-      for (let j = 0; j <= distanceWidth + spacing; j += spacing) {
+    for (let i = 0; i < distanceHeight + spacingHeight; i += spacingHeight) {
+      for (let j = 0; j < distanceWidth + spacingWidth; j += spacingWidth) {
         // draw face on X axis
         let x, y, z;
         if (axis === 0) {
@@ -71,11 +82,44 @@ class Rectangle extends Shape {
   }
 
   initRectangleVertices() {
-    this.getFaceVerticies(frontFace, 2);
-    this.getFaceVerticies(backFace, 2);
-    this.getFaceVerticies(rightFace, 0);
-    this.getFaceVerticies(leftFace, 0);
-    this.getFaceVerticies(topFace, 1);
-    this.getFaceVerticies(bottomFace, 1);
+    if (!this.shouldDrawAsFaces) {
+      this.getFaceVerticies(frontFace, 2);
+      this.getFaceVerticies(backFace, 2);
+      this.getFaceVerticies(rightFace, 0);
+      this.getFaceVerticies(leftFace, 0);
+      this.getFaceVerticies(topFace, 1);
+      this.getFaceVerticies(bottomFace, 1);
+    } else {
+      cubeVertices.forEach((vertex) => {
+        this.verticies.push(vertex);
+      });
+    }
+  }
+
+  draw() {
+    if (!this.shouldDrawAsFaces) {
+      super.draw();
+      return;
+    } else {
+      const projectedVerticies = this.getProjectionTransform(this.verticies);
+
+      const [v0, v1, v2, v3] = projectedVerticies;
+      context.fillStyle = "rgba(255,215,215, 0.015)";
+      context.strokeStyle = "rgba(0,255,215, 0.025)";
+
+      faces.forEach((face) => {
+        const [startX, startY] = projectedVerticies[face[0]];
+        context.beginPath();
+        context.moveTo(startX, startY);
+
+        face.forEach((index, i) => {
+          const [x, y, z] = projectedVerticies[index];
+          context.lineTo(x, y);
+        });
+        context.closePath();
+        context.fill();
+        context.stroke();
+      });
+    }
   }
 }

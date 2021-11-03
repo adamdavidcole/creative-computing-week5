@@ -108,6 +108,31 @@ class Shape {
   /**
    * 3D TRANSFORMATION AND PROJECTION
    */
+
+  // get transformed model without projection
+  getTransform(verticies) {
+    return verticies.map((vertex) => {
+      // get transform values
+      const [translationX, translationY, translationZ] = this.translation;
+      const [rotationX, rotationY, rotationZ] = this.rotatation;
+      const [scaleX, scaleY, scaleZ] = this.scaleFactor;
+
+      // rotate the shape
+      let rotatedVertex = [...vertex];
+      rotatedVertex = this.rotateX(rotatedVertex, rotationX);
+      rotatedVertex = this.rotateY(rotatedVertex, rotationY);
+
+      let [x, y, z] = rotatedVertex;
+
+      // scale and translate the shape
+      x = scaleX * x + translationX;
+      y = scaleY * y + translationY;
+      z = scaleZ * z + translationZ;
+
+      return [x, y, z];
+    });
+  }
+
   getProjectionTransform(verticies) {
     return verticies.map((vertex) => {
       // get transform values

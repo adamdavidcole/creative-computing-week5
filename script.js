@@ -16,6 +16,7 @@ var context = canvas.getContext("2d");
 canvas.setAttribute("width", width);
 canvas.setAttribute("height", height);
 canvas.addEventListener("mousemove", getMouse, false);
+context.globalCompositeOperation = "lighter";
 
 // move sphere with arrow keys
 document.addEventListener("keydown", function (event) {
@@ -43,8 +44,8 @@ document.addEventListener("keydown", function (event) {
  * UTILITY FUNCTIONS
  */
 
-var mouseX = 0;
-var mouseY = 0;
+var mouseX = width / 2;
+var mouseY = height / 2;
 
 function map(number, inMin, inMax, outMin, outMax) {
   return ((number - inMin) * (outMax - outMin)) / (inMax - inMin) + outMin;
@@ -72,14 +73,18 @@ const sphere = new Sphere({ size: 200 });
 const spherePulse = new SpherePulse({ size: 200 });
 const organicSpherePulse = new OrganicSpherePulse({ size: 300 });
 
-const cube = new Rectangle({ size: 200 });
+const cube = new Rectangle({ width: 200, height: 200, depth: 200 });
 const cylinder = new Cylinder({ size: 200 });
 const cone = new Cone({ size: 200 });
 const taurus = new Taurus({ size: 200 });
+const roses = new Roses({});
+
+const coneOfCubes = new ConeOfCubes();
 
 function draw() {
   // clear rect
   context.fillStyle = "rgb(0,0,0)";
+  context.clearRect(0, 0, width, height);
   context.fillRect(0, 0, width, height);
 
   // draw sphere
@@ -129,8 +134,14 @@ function draw() {
   //   y: map(mouseY, 0, height, -TWO_PI, TWO_PI),
   // });
 
-  organicSpherePulse.update();
-  organicSpherePulse.draw();
+  // organicSpherePulse.update();
+  // organicSpherePulse.draw();
+
+  // coneOfCubes.update();
+  // coneOfCubes.draw();
+
+  roses.update();
+  roses.draw();
 
   frameCount++;
 
