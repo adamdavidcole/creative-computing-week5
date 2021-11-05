@@ -105,7 +105,7 @@ class Rectangle extends Shape {
       super.draw();
       return;
     } else {
-      context.globalCompositeOperation = "lighter";
+      // context.globalCompositeOperation = "lighter";
       const projectedVerticies = this.getProjectionTransform(this.verticies);
 
       const [v0, v1, v2, v3] = projectedVerticies;

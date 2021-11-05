@@ -100,7 +100,7 @@ class ViolinShape extends Shape {
   draw() {
     const projectedVertices = this.getProjectionTransform(this.verticies);
 
-    context.strokeStyle = "rgb(255,255,255)";
+    context.strokeStyle = strokeColor;
     context.lineWidth = 1;
 
     context.beginPath();

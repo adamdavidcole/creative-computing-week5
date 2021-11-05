@@ -201,7 +201,7 @@ class Shape {
       // if point is beyond field of view, do not render it
       if (z < -fov) return;
 
-      context.strokeStyle = "rgb(255,255,255)";
+      context.strokeStyle = strokeColor;
       context.beginPath();
       context.moveTo(x, y);
       context.lineTo(x + projectionScale, y);

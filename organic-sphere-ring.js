@@ -11,11 +11,11 @@ class OrganicSphereRing {
 
     this.transitions = [];
 
-    this.addTransition({
-      distance: 0,
-      scaleFactor: 0.25,
-      frameDuration: 30,
-    });
+    // this.addTransition({
+    //   distance: 0,
+    //   scaleFactor: 0.25,
+    //   frameDuration: 30,
+    // });
 
     this.transitionState = {
       isTransitioning: false,

@@ -18,6 +18,11 @@ const scene4End = 62.475;
 
 const isEndingAnimation = false;
 
+let lineWidthFactor = 1;
+
+let backgroundColor = "#1a171c";
+let strokeColor = "#f0d8db";
+
 /**
  * SCENE SETUP AND EVENT HANDLERS
  */
@@ -26,11 +31,8 @@ var context = canvas.getContext("2d");
 canvas.addEventListener("mousemove", getMouse, false);
 canvas.width = 1080;
 canvas.height = (1 / 1.66) * canvas.width;
-// canvas.setAttribute("width", width);
-// canvas.setAttribute("height", height);
 var width = canvas.width;
 var height = canvas.height;
-
 // context.globalCompositeOperation = "lighter";
 
 const playButtonContainer = document.getElementById("playButtonContainer");
@@ -144,7 +146,7 @@ let lastNextSecond = -1;
 
 function draw() {
   // clear rect
-  context.fillStyle = "rgb(0,0,0)";
+  context.fillStyle = backgroundColor;
   context.clearRect(0, 0, width, height);
   context.fillRect(0, 0, width, height);
 

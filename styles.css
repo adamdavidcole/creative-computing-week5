@@ -29,12 +29,12 @@ canvas {
 }
 
 #playButton {
-  background: #da8a01;
+  background: #1a171c;
   box-shadow: 0px 0px 5px #11111136;
   border: 1px solid #11111136;
   padding: 10px 25px;
   font-size: 15px;
-  color: #a90100;
+  color: #f0d8db;
   font-weight: 900;
   letter-spacing: 3px;
 }

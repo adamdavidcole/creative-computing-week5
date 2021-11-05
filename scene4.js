@@ -10,6 +10,12 @@ class Scene4 {
     });
 
     this.organicSphereRing.addTransition({
+      distance: 0.4,
+      scaleFactor: 0.625,
+      frameDuration: 30,
+    });
+
+    this.organicSphereRing.addTransition({
       distance: 11,
       scaleFactor: 1.72,
       frameDuration: 30,
@@ -26,18 +32,6 @@ class Scene4 {
       scaleFactor: 1.846,
       frameDuration: 60,
     });
-
-    // this.organicSphereRing.addTransition({
-    //   distance: 161,
-    //   scaleFactor: 0.523,
-    //   frameDuration: 30,
-    // });
-
-    // this.organicSphereRing.addTransition({
-    //   distance: 640,
-    //   scaleFactor: -9.107,
-    //   frameDuration: 30,
-    // });
   }
 
   update() {
