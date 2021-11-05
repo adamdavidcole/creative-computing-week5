@@ -5,6 +5,14 @@ const fov = 500;
 const PI = Math.PI;
 const TWO_PI = 2 * PI;
 let frameCount = 0;
+const framesPerSecond = 60;
+
+var audio = new Audio("sway.mp3");
+
+let useCameraView = false;
+
+const scene1End = 14;
+const scene2End = 22.0;
 
 /**
  * SCENE SETUP AND EVENT HANDLERS
@@ -16,11 +24,50 @@ var context = canvas.getContext("2d");
 canvas.setAttribute("width", width);
 canvas.setAttribute("height", height);
 canvas.addEventListener("mousemove", getMouse, false);
-context.globalCompositeOperation = "lighter";
+
+// context.globalCompositeOperation = "lighter";
+
+const playButtonContainer = document.getElementById("playButtonContainer");
+const playButton = document.getElementById("playButton");
+let playAudio = async () => {
+  // remove play button
+  playButtonContainer.remove();
+
+  audio.currentTime = 0;
+  audio.play();
+
+  //start the audio engine
+  // maxiEngine.init();
+
+  // audio.currentTime = 0;
+  // audio.play();
+
+  //   maxiEngine.play = function () {
+  //     myClock.ticker();
+
+  //     if (myClock.tick) {
+  //       console.log(counter);
+
+  //       counter++;
+  //     }
+
+  //     return 0;
+  //   };
+  // };
+};
+
+// This script listens to the play button
+playButton.addEventListener("click", () => {
+  playAudio();
+
+  shouldAnimate = true;
+  animate();
+});
 
 // move sphere with arrow keys
 document.addEventListener("keydown", function (event) {
   const key = event.key; // "ArrowRight", "ArrowLeft", "ArrowUp", or "ArrowDown"
+
   switch (key) {
     case "ArrowLeft":
       sphere.translate({ x: -5 });
@@ -36,6 +83,9 @@ document.addEventListener("keydown", function (event) {
     case "ArrowDown":
       sphere.translate({ y: 5 });
       // Down pressed
+      break;
+    case " ":
+      rosesPoseSwapper.next();
       break;
   }
 });
@@ -68,27 +118,48 @@ function getMouse(mousePosition) {
  * SCENE LOGIC
  */
 
+const camera = new Camera();
+
 // create shapes
 const sphere = new Sphere({ size: 200 });
 const spherePulse = new SpherePulse({ size: 200 });
-const organicSpherePulse = new OrganicSpherePulse({ size: 300 });
+const organicSpherePulse = new OrganicSpherePulse({
+  loopPhaseStart: PI + PI / 3,
+  loopSpeed: 3,
+  size: 300,
+});
 const mirroredOrganicSpheres = new MirroredOrganicSpheres({});
 
-const cube = new Rectangle({ width: 200, height: 200, depth: 200 });
+const cube = new Rectangle({
+  width: 200,
+  height: 200,
+  depth: 200,
+  shouldDrawAsFaces: true,
+  strokeStyle: "rgba(255, 255, 0, 0.25)",
+  fillStyle: "rgba(255, 0, 255, 0.25)",
+});
 const cylinder = new Cylinder({ size: 200 });
 const cone = new Cone({ size: 200 });
 const taurus = new Taurus({ size: 200 });
 const roses = new Roses({});
+const rosesPoseSwapper = new RosesPoseSwapper({});
 const violinShape = new ViolinShape({});
 const organicSphereRing = new OrganicSphereRing({});
 
 const coneOfCubes = new ConeOfCubes();
+
+const scene1 = new Scene1();
+const scene2 = new Scene2();
+
+let lastNextSecond = -1;
 
 function draw() {
   // clear rect
   context.fillStyle = "rgb(0,0,0)";
   context.clearRect(0, 0, width, height);
   context.fillRect(0, 0, width, height);
+
+  camera.update();
 
   // draw sphere
   // sphere.draw();
@@ -146,18 +217,37 @@ function draw() {
   // roses.update();
   // roses.draw();
 
+  // rosesPoseSwapper.update();
+  // rosesPoseSwapper.draw();
+
   // violinShape.update();
   // violinShape.draw();
 
   // mirroredOrganicSpheres.update();
   // mirroredOrganicSpheres.draw();
 
-  organicSphereRing.update();
-  organicSphereRing.draw();
+  // organicSphereRing.update();
+  // organicSphereRing.draw();
+
+  if (audio.currentTime < scene1End) {
+    scene1.update();
+    scene1.draw();
+  } else if (audio.currentTime < scene2End) {
+    scene2.update();
+    scene2.draw();
+  }
 
   frameCount++;
 
-  requestAnimationFrame(draw);
+  // requestAnimationFrame(draw);
 }
 
-requestAnimationFrame(draw);
+function animate() {
+  setTimeout(function () {
+    requestAnimationFrame(animate);
+
+    draw();
+
+    // animating/drawing code goes here
+  }, 1000 / framesPerSecond);
+}

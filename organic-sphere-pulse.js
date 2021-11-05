@@ -1,11 +1,14 @@
 class OrganicSpherePulse {
-  constructor({ ...args }) {
+  constructor({ loopPhaseStart = PI, loopSpeed = 5, ...args }) {
+    this.loopPhaseStart = loopPhaseStart;
+    this.loopSpeed = loopSpeed;
+
     this.spherePulse = new SpherePulse({ ...args });
   }
 
   update() {
-    const loopPhase = Math.cos(frameCount / 500 + PI);
-    const currPulsePhase = map(loopPhase, -1, 1, 0, 5 * TWO_PI);
+    const loopPhase = Math.cos(frameCount / 500 + this.loopPhaseStart);
+    const currPulsePhase = map(loopPhase, -1, 1, 0, this.loopSpeed * TWO_PI);
 
     this.spherePulse.pulsePeriod = currPulsePhase;
 

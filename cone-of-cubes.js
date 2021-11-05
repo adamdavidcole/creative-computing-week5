@@ -9,9 +9,11 @@ class ConeOfCubes {
     this.cone.setTranslation({ y: 500 / 2 - 50 });
     const scaleFactor = 100;
     this.cone.scale({ x: scaleFactor, y: scaleFactor, z: scaleFactor });
+    this.cone.setRotation({ x: PI });
+
     this.initSquares();
 
-    this.loopLength = 1000;
+    this.loopLength = 350;
   }
 
   initSquares() {
@@ -30,6 +32,8 @@ class ConeOfCubes {
         depth: cubeSize,
         numPointsPerLine: 1,
         shouldDrawAsFaces: true,
+        fillStyle: "rgba(225, 225, 215, 0.005)",
+        strokeStyle: "rgba(150, 150, 255, 0.035)",
       });
 
       this.cubes.push(cube);
@@ -47,6 +51,9 @@ class ConeOfCubes {
     //   cube.setTranslation({ x, y, z });
     //   this.cubes.push(cube);
     // });
+
+    camera.setScale({ x: 20, y: 20, z: 20 });
+    camera.setRotation({ x: PI / 2 });
   }
 
   update() {
@@ -59,8 +66,17 @@ class ConeOfCubes {
       const cube = this.cubes[i];
       const [x, y, z] = coneVertices[i];
 
-      cube.setTranslation({ x, y, z });
-      // cube.setRotation({ x: PI / 3 });
+      const jitterPhase = 3 * Math.sin(frameCount / 3 + z / 50);
+      // console.log("mouseY", mouseY, "mouseX", mouseX);
+      cube.setTranslation({ x, y: y + jitterPhase, z });
+
+      const jitterScale = Math.sin(frameCount / 3 + i / 50);
+      const [scaleX, scaleY, scaleZ] = cube.scaleFactor;
+      cube.setScale({
+        x: scaleX + jitterScale,
+        scaleY: jitterScale,
+        scaleZ: jitterScale,
+      });
 
       if (i < numCubesToDraw) {
         cube.shouldDraw = true;
@@ -76,7 +92,16 @@ class ConeOfCubes {
     this.cubes.forEach((cube) => {
       if (cube.shouldDraw) cube.draw();
     });
-    this.cone.setRotation({ x: PI });
+    if (camera.scaleFactor[0] > 1) {
+      camera.scale({ x: -0.05, y: -0.05, z: -0.05 });
+    }
+    // if (frameCount > this.loopLength / 3) {
+    if (camera.rotatation[0] >= 0) {
+      camera.rotate({ x: -0.001 });
+    }
+    // }
+
     this.cone.rotate({ y: 0.001 });
+    this.cone.scale({ x: 3, y: 3, z: 3 });
   }
 }

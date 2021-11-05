@@ -25,9 +25,13 @@ class Rectangle extends Shape {
     depth,
     numPointsPerLine,
     shouldDrawAsFaces,
+    strokeStyle,
+    fillStyle,
   } = {}) {
     super();
 
+    this.strokeStyle = strokeStyle;
+    this.fillStyle = fillStyle;
     this.shouldDrawAsFaces = shouldDrawAsFaces ?? false;
 
     this.verticies = [];
@@ -101,11 +105,12 @@ class Rectangle extends Shape {
       super.draw();
       return;
     } else {
+      context.globalCompositeOperation = "lighter";
       const projectedVerticies = this.getProjectionTransform(this.verticies);
 
       const [v0, v1, v2, v3] = projectedVerticies;
-      context.fillStyle = "rgba(255,215,215, 0.015)";
-      context.strokeStyle = "rgba(0,255,215, 0.025)";
+      context.fillStyle = this.fillStyle;
+      context.strokeStyle = this.strokeStyle;
 
       faces.forEach((face) => {
         const [startX, startY] = projectedVerticies[face[0]];

@@ -10,8 +10,8 @@ class OrganicSphereRing {
       const sphere = new OrganicSpherePulse({
         size: this.sphereRadius,
         dimension: 10,
-        numVerticesPerCircle: 25,
-        numCircles: 50,
+        numVerticesPerCircle: 26,
+        numCircles: 52,
       });
       this.spheres.push(sphere);
     }

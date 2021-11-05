@@ -22,9 +22,9 @@ class Shape {
   }
 
   scale({ x, y, z }) {
-    this.scaleFactor[0] += x || 1; // x scale
-    this.scaleFactor[1] += y || 1; // y scale
-    this.scaleFactor[2] += z || 1; // z scale
+    this.scaleFactor[0] += x ?? 1; // x scale
+    this.scaleFactor[1] += y ?? 1; // y scale
+    this.scaleFactor[2] += z ?? 1; // z scale
   }
 
   /**
@@ -144,6 +144,7 @@ class Shape {
       let rotatedVertex = [...vertex];
       rotatedVertex = this.rotateX(rotatedVertex, rotationX);
       rotatedVertex = this.rotateY(rotatedVertex, rotationY);
+      rotatedVertex = this.rotateZ(rotatedVertex, rotationZ);
 
       let [x, y, z] = rotatedVertex;
 
@@ -151,6 +152,27 @@ class Shape {
       x = scaleX * x + translationX;
       y = scaleY * y + translationY;
       z = scaleZ * z + translationZ;
+
+      let modelVertex = [x, y, z];
+
+      // camera
+      if (useCameraView) {
+        const [cameraRotationX, cameraRotationY, cameraRotationZ] =
+          camera.rotatation;
+        const [cameraTranslationX, cameraTranslationY, cameraTranslationZ] =
+          camera.translation;
+        const [cameraScaleX, cameraScaleY, cameraScaleZ] = camera.scaleFactor;
+
+        rotatedVertex = this.rotateX(modelVertex, cameraRotationX);
+        rotatedVertex = this.rotateY(rotatedVertex, cameraRotationY);
+        rotatedVertex = this.rotateZ(rotatedVertex, cameraRotationZ);
+
+        [x, y, z] = rotatedVertex;
+
+        x = cameraScaleX * x + cameraTranslationX;
+        y = cameraScaleY * y + cameraTranslationY;
+        z = cameraScaleZ * z + cameraTranslationZ;
+      }
 
       // get 3D projection scale factor
       const projectionScale = fov / (fov + z);
