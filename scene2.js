@@ -3,7 +3,7 @@ class Scene2 {
     this.organicSpherePulse = new OrganicSpherePulse({
       loopPhaseStart: PI + PI / 3,
       loopSpeed: 3,
-      size: 300,
+      size: 200,
     });
 
     const fadeInFrameDuration = 15;

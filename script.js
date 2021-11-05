@@ -12,18 +12,22 @@ var audio = new Audio("sway.mp3");
 let useCameraView = false;
 
 const scene1End = 14;
-const scene2End = 22.0;
+const scene2End = 30.0;
+const scene3End = 46.0;
+const scene4End = 62.4;
 
 /**
  * SCENE SETUP AND EVENT HANDLERS
  */
 var canvas = document.querySelector("canvas");
-var width = window.innerWidth;
-var height = window.innerHeight;
 var context = canvas.getContext("2d");
-canvas.setAttribute("width", width);
-canvas.setAttribute("height", height);
 canvas.addEventListener("mousemove", getMouse, false);
+canvas.width = 1080;
+canvas.height = (1 / 1.66) * canvas.width;
+// canvas.setAttribute("width", width);
+// canvas.setAttribute("height", height);
+var width = canvas.width;
+var height = canvas.height;
 
 // context.globalCompositeOperation = "lighter";
 
@@ -33,7 +37,7 @@ let playAudio = async () => {
   // remove play button
   playButtonContainer.remove();
 
-  audio.currentTime = 0;
+  audio.currentTime = scene3End;
   audio.play();
 
   //start the audio engine
@@ -150,6 +154,8 @@ const coneOfCubes = new ConeOfCubes();
 
 const scene1 = new Scene1();
 const scene2 = new Scene2();
+const scene3 = new Scene3();
+const scene4 = new Scene4();
 
 let lastNextSecond = -1;
 
@@ -235,6 +241,12 @@ function draw() {
   } else if (audio.currentTime < scene2End) {
     scene2.update();
     scene2.draw();
+  } else if (audio.currentTime < scene3End) {
+    scene3.update();
+    scene3.draw();
+  } else if (audio.currentTime < scene4End) {
+    scene4.update();
+    scene4.draw();
   }
 
   frameCount++;

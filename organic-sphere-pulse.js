@@ -1,7 +1,13 @@
 class OrganicSpherePulse {
-  constructor({ loopPhaseStart = PI, loopSpeed = 5, ...args }) {
+  constructor({
+    loopPhaseStart = PI,
+    loopSpeed = 5,
+    autoRotate = true,
+    ...args
+  }) {
     this.loopPhaseStart = loopPhaseStart;
     this.loopSpeed = loopSpeed;
+    this.autoRotate = autoRotate;
 
     this.spherePulse = new SpherePulse({ ...args });
   }
@@ -20,7 +26,9 @@ class OrganicSpherePulse {
     // this.spherePulse.setScale({ y: currZScalePhase });
     // this.spherePulse.setScale({ z: 0, x: 0 });
 
-    this.spherePulse.rotate({ x: 0.001, y: 0.001 });
+    if (this.autoRotate) {
+      this.spherePulse.rotate({ x: 0.001, y: 0.001 });
+    }
     // this.spherePulse.setRotation({
     //   x: map(mouseX, 0, width, -TWO_PI, TWO_PI),
     //   y: map(mouseY, 0, height, -TWO_PI, TWO_PI),

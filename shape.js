@@ -10,9 +10,10 @@ class Shape {
    * INCREMENTAL TRANSFORMS
    */
   translate({ x, y, z }) {
-    this.translation[0] += x || 0; // x translation
-    this.translation[1] += y || 0; // y translation
-    this.translation[2] += z || 0; // z translation
+    console.log("x", x);
+    this.translation[0] += x ?? 0; // x translation
+    this.translation[1] += y ?? 0; // y translation
+    this.translation[2] += z ?? 0; // z translation
   }
 
   rotate({ x, y, z }) {
@@ -32,9 +33,9 @@ class Shape {
    */
   setTranslation({ x, y, z }) {
     const [currX, currY, currZ] = this.translation;
-    this.translation[0] = x || currX; // x translation
-    this.translation[1] = y || currY; // y translation
-    this.translation[2] = z || currZ; // z translation
+    this.translation[0] = x ?? currX; // x translation
+    this.translation[1] = y ?? currY; // y translation
+    this.translation[2] = z ?? currZ; // z translation
   }
 
   setRotation({ x, y, z }) {
