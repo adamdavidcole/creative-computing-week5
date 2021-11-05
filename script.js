@@ -14,7 +14,9 @@ let useCameraView = false;
 const scene1End = 14;
 const scene2End = 30.0;
 const scene3End = 46.0;
-const scene4End = 62.4;
+const scene4End = 62.475;
+
+const isEndingAnimation = false;
 
 /**
  * SCENE SETUP AND EVENT HANDLERS
@@ -37,27 +39,8 @@ let playAudio = async () => {
   // remove play button
   playButtonContainer.remove();
 
-  audio.currentTime = scene3End;
+  audio.currentTime = 0;
   audio.play();
-
-  //start the audio engine
-  // maxiEngine.init();
-
-  // audio.currentTime = 0;
-  // audio.play();
-
-  //   maxiEngine.play = function () {
-  //     myClock.ticker();
-
-  //     if (myClock.tick) {
-  //       console.log(counter);
-
-  //       counter++;
-  //     }
-
-  //     return 0;
-  //   };
-  // };
 };
 
 // This script listens to the play button
@@ -247,11 +230,28 @@ function draw() {
   } else if (audio.currentTime < scene4End) {
     scene4.update();
     scene4.draw();
+  } else {
+    if (!isEndingAnimation) endAnimation();
+    isEndingAnimation = true;
   }
 
   frameCount++;
 
   // requestAnimationFrame(draw);
+}
+
+function endAnimation() {
+  const audioFadeStep = 0.001;
+  const fadeMusicInterval = setInterval(() => {
+    if (audio.volume - audioFadeStep <= 0) {
+      clearInterval(fadeMusicInterval);
+      audio.pause();
+      return;
+    }
+
+    audio.volume = audio.volume - audioFadeStep;
+    console.log("audio.volume", audio.volume);
+  }, 250);
 }
 
 function animate() {

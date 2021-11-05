@@ -18,6 +18,7 @@ class SpherePulse extends Shape {
     rotation,
     numVerticesPerCircle = 100,
     numCircles = 100,
+    startRotation = { x: Math.PI / 2, y: 0, z: 0 },
   }) {
     super();
 
@@ -32,7 +33,7 @@ class SpherePulse extends Shape {
     // pulse factor as a fraction of the radius
     this.pulseFactor = 1 / 10;
 
-    this.setRotation({ x: Math.PI / 2 });
+    this.setRotation(startRotation);
   }
 
   update() {
